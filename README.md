@@ -10,12 +10,14 @@ be considering moving too.
 Enter your address, and the following API's are called:
 
 	- Google Maps (Streetview) API to display a streetview background of the address.
+		This is working as of 11/15
 	- NY Times API to display recent news articles
+		This is working as of 11/24
 	- Wikipedia API to display interesting Wiki articles about the location
 
-The project also uses JQuery, a defacto modern web libary found in more than 
+The project also uses JQuery, a de-facto modern web library found in more than 
 50% of modern web sites.
 
-The idea for the project originally came from an online class on Udacity on AJAX.
+The idea for the project originally came from an on-line class on Udacity on AJAX.
 
 David Whipple.
