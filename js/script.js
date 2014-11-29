@@ -63,10 +63,29 @@ $('#form-container').submit(function() {
   nytHeaderElem.text('New York Times Articles Could Not Be Loaded');
   });
   
- 
+  // This is the Wikipedia AJAX call, uses .ajax calls to avoid cross site scripting issues.
+  var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + cityInput + '&format=json&callback=wikiCallback';
+  
+$.ajax(wikiUrl, {
+        // url: wikiUrl,
+        dataType: "jsonp",
+		// Comment below in case we need to change the callback function name, setting dataType to jsonp, should use "callback" as default
+		// jsonp: "callback",
+  		success: function( response ) {
+  		    articleList = response[1];
+			 
+  			for (var i=0; i< articleList.length; i++) {
+  			    articleStr = articleList[i];
+  			    var url = 'http://en.wikipedia.org/wiki/' + articleStr;
+  				wikiElem.append('<li><a href="' + url + '">' + articleStr + '</a></li>');
+  			};
+  		}
+  	});
+	
  return false;
+
 });
 
 // $('#form-container').submit(loadData);
 
-// loadData();
+//loadData();
