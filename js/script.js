@@ -41,6 +41,8 @@ $('#form-container').submit(function() {
   // Get the NYTimes articles with an AJAX request  
   var APIKey = "822d0e417f994ced8c6a3b010c61c95f:1:70224211";
   var myNyTimesURL = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + cityInput + '&sort=newest&api-key=' + APIKey;
+  // Use the below line to break the API call and test error handling..
+  //var myNyTimesURL = 'http://api.ytimes.com/svc/search/v2/articlesearch.json?q=' + cityInput + '&sort=newest&api-key=' + APIKey;
   $.getJSON(myNyTimesURL, function(data) {
   
     // The NY Times API call is working, but I am not sure the query is constructed correctly because of the results.
@@ -54,9 +56,15 @@ $('#form-container').submit(function() {
 	   var article = articles[i];
 	   nytElem.append('<li class="article">'+'<a href="'+article.web_url+'">'+article.headline.main+'</a>'+'<p>'+ article.snippet + '</p>' + '</li>');
 	};
-  });
+	
+	  // Added Error Handling here with chaining
 
-  return false;
+  }).error(function(e) {
+  nytHeaderElem.text('New York Times Articles Could Not Be Loaded');
+  });
+  
+ 
+ return false;
 });
 
 // $('#form-container').submit(loadData);
