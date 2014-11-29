@@ -65,7 +65,15 @@ $('#form-container').submit(function() {
   
   // This is the Wikipedia AJAX call, uses .ajax calls to avoid cross site scripting issues.
   var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + cityInput + '&format=json&callback=wikiCallback';
+  // Used to test errorhandling
+  // var wikiUrl = 'http://en.wiipedia.org/w/api.php?action=opensearch&search=' + cityInput + '&format=json&callback=wikiCallback';
   
+  // Set timer for Wiki JSONP call to 8 seconds.
+  var wikiRequestTimeout = setTimeout(function(){
+      wikiElem.text("Failed to get wikipedia response");
+  }, 8000);
+  
+  // Error handling not builtin to jsonp
 $.ajax(wikiUrl, {
         // url: wikiUrl,
         dataType: "jsonp",
@@ -79,6 +87,9 @@ $.ajax(wikiUrl, {
   			    var url = 'http://en.wikipedia.org/wiki/' + articleStr;
   				wikiElem.append('<li><a href="' + url + '">' + articleStr + '</a></li>');
   			};
+			
+			// Clear timer we set
+			clearTimeout(wikiRequestTimeout);
   		}
   	});
 	
